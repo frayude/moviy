@@ -36,14 +36,23 @@ function updateHero(index) {
   const imageUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
   heroSection.style.backgroundImage = `url(${imageUrl})`;
 
+  // Mengganti format date menjadi day month year
+  let movieReleaseDate = new Date(movie.release_date);
+  // Ambil bagian tanggal, bulan (pakai nama singkatan), dan tahun
+  let day = movieReleaseDate.getDate();
+  let month = movieReleaseDate.toLocaleString("en-US", { month: "short" });
+  let year = movieReleaseDate.getFullYear();
+
+  // Menggabungkan dan mengganti format dari release date
+  movieReleaseDate = `${day} ${month} ${year}`;
+
   movieInfo.innerHTML = `
     <h1 class="title-hero">Movies that will be released soon</h1>
-    <h1 class="movie-title">${movie.original_title}</h1>
+    <h1 class="movie-title">${movie.title}</h1>
     <p class="movie-description">${movie.overview}</p>
     <span>${getGenreNames(movie.genre_ids)}</span>
-    <span>⭐ ${movie.vote_average.toFixed(1)}</span>
-    <span>${movie.release_date.split("-")[0]}</span>
-    `;
+    <span>Expected ${movieReleaseDate}</span>
+      `;
 }
 
 // Event listener buat navigasi arrow
@@ -121,10 +130,8 @@ function showData(data, category) {
 function showCard(movie) {
   return `
           <section class="card">
-          <img src="${imageBaseUrl}${movie.poster_path}" alt="${
-    movie.original_title
-  }" />
-          <span class="title">${movie.original_title}</span>
+          <img src="${imageBaseUrl}${movie.poster_path}" alt="${movie.title}" />
+          <span class="title">${movie.title}</span>
           <span class="release-date">${movie.release_date.split("-")[0]}</span>
           </section>
   `;
