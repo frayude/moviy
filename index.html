@@ -2,12 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Moviy</title>
+
+    <!-- Icon -->
+    <link rel="icon" href="/icon.png" type="image/png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
-    <div id="app"></div>
+    <header>
+      <nav class="navbar">
+        <h1 class="logo">Moviy</h1>
+
+        <div class="nav-search">
+          <form class="search-bar">
+            <span class="search-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input type="text" class="search" placeholder="Search here... " />
+          </form>
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="#">Movies</a></li>
+          <li><a href="#">TV Series</a></li>
+          <li><a href="#">Genre</a></li>
+          <li><a href="#">Year</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="movie-info"></div>
+
+        <button class="watch-btn">Watch Now</button>
+
+        <div class="hero-arrows">
+          <i class="fa-solid fa-chevron-left"></i>
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main -->
+    <main id="main-content"></main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Moviy. All rights reserved.</p>
+    </footer>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
