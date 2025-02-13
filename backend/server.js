@@ -7,7 +7,7 @@ const path = require("path");
 const app = express();
 const PORT = 3000;
 const API_KEY = process.env.API_KEY;
-const URL = "https://api.themoviedb.org/3/";
+const URL = process.env.URL;
 
 app.use(cors());
 app.use(express.json());
