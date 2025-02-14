@@ -54,22 +54,49 @@ function updateHero(index) {
     <h1 class="movie-title">${movie.title}</h1>
     <p class="movie-description">${movie.overview}</p>
     <span>${getGenreNames(movie.genre_ids)}</span>
+    <span class="ageCertification"></span>
     <span>Expected ${movieReleaseDate}</span>
       `;
 }
 
 // Release Dates
 async function releaseDates(id, rating) {
+  console.log(id);
   try {
     const response = await fetch(`http://localhost:3000/${id}/releaseDates`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status : ${response.status}`);
     }
     let data = await response.json();
-    console.log(data);
+    const datas = data.results;
+    updateIso(datas);
   } catch (error) {
     console.error("Fetch error", error);
   }
+}
+
+function updateIso(data) {
+  // Default value for iso ID
+  const country = "ID";
+
+  // Update ISO to ID only
+  const found = data.find((item) => item.iso_3166_1 === country);
+
+  if (!found) return console.log("ISO not found");
+
+  // check iso id
+  // console.log(found);
+
+  const releaseDates = found.release_dates;
+
+  const ageCertification = releaseDates[0];
+  // console.log(ageCertification);
+
+  const tai = ageCertification.certification;
+  console.log(tai);
+
+  const releaseDate = ageCertification.release_date;
+  console.log(releaseDate);
 }
 
 // Event listener buat navigasi arrow
