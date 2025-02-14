@@ -20,19 +20,22 @@ async function fetchHeroMovies() {
     }
 
     let data = await response.json();
-
+    // Mengambil data
     movies = data.results;
+
     updateHero(currentIndex);
   } catch (error) {
     console.error("Fetch error", error);
   }
 }
 
-fetchHeroMovies();
-
 // Hero Section
 function updateHero(index) {
   const movie = movies[index];
+
+  const id = movie.id;
+  releaseDates(id);
+
   const imageUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
   heroSection.style.backgroundImage = `url(${imageUrl})`;
 
@@ -53,6 +56,20 @@ function updateHero(index) {
     <span>${getGenreNames(movie.genre_ids)}</span>
     <span>Expected ${movieReleaseDate}</span>
       `;
+}
+
+// Release Dates
+async function releaseDates(id, rating) {
+  try {
+    const response = await fetch(`http://localhost:3000/${id}/releaseDates`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status : ${response.status}`);
+    }
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Fetch error", error);
+  }
 }
 
 // Event listener buat navigasi arrow
@@ -84,8 +101,6 @@ async function fetchGenres() {
   }
 }
 
-fetchGenres();
-
 function getGenreNames(genreIds) {
   return genreIds
     .map((id) => `<span class="genre">${genreMap[id] || "Unknown"}</span>`)
@@ -95,7 +110,6 @@ function getGenreNames(genreIds) {
 async function fetchMovies(category) {
   try {
     const response = await fetch(`http://localhost:3000/movies/${category}`);
-    console.log("Response Status:", response.status); // Cek status
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status : ${response.status}`);
@@ -148,4 +162,6 @@ function getCategoryTitle(category) {
   return categoryTitles[category];
 }
 
+fetchGenres();
+fetchHeroMovies();
 // fetchMovies("popular");
