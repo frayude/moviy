@@ -30,6 +30,7 @@ app.get("/movies", async (req, res) => {
   }
 });
 
+// Genres
 app.get("/genresMovies", async (req, res) => {
   try {
     const response = await axios.get(
@@ -42,15 +43,28 @@ app.get("/genresMovies", async (req, res) => {
   }
 });
 
+// Release Dates
+app.get("/:id/releaseDates", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(
+      `${URL}movie/${id}/release_dates?api_key=${API_KEY}`
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: "error fetching data" });
+  }
+});
+
 // Category Movie Lists : Now Playing, Popular, Top Rated, Upcoming
-app.get("/movies/:category", async (req, res) => {
+https: app.get("/movies/:category", async (req, res) => {
   const { category } = req.params;
 
   try {
     const response = await axios.get(
       `${URL}movie/${category}?api_key=${API_KEY}`
     );
-    console.log(response);
 
     res.json(response.data);
   } catch (error) {
